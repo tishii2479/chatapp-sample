@@ -19,8 +19,8 @@ async def create_user(user: user_schema.UserCreate) -> user_schema.UserCreateRes
     Create a new user.
     ダミーデータとして user_id を 1 にして返す
     """
-    user = user_schema.User(user_id=1, **user.model_dump())
-    return user_schema.UserCreateResponse(**user.model_dump())
+    created_user = user_schema.User(user_id=1, **user.model_dump())
+    return user_schema.UserCreateResponse(**created_user.model_dump())
 
 
 @router.get("/users/{user_id}", response_model=user_schema.User)

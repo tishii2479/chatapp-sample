@@ -21,7 +21,7 @@ async def test_list_users(async_client: AsyncClient) -> None:
 
 
 @pytest.mark.asyncio()
-async def test_create_and_read_user(async_client: AsyncClient) -> None:
+async def test_create_and_read_and_delete_user(async_client: AsyncClient) -> None:
     response = await async_client.post("/users", json={"user_name": "UserName1"})
     assert response.status_code == starlette.status.HTTP_200_OK
     response_obj = response.json()
@@ -32,3 +32,6 @@ async def test_create_and_read_user(async_client: AsyncClient) -> None:
     response_obj = response.json()
     assert len(response_obj) == 1
     assert response_obj[0]["user_name"] == "UserName1"
+
+    response = await async_client.delete("/users/1")
+    assert response.status_code == starlette.status.HTTP_200_OK
